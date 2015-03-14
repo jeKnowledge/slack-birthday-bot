@@ -2,6 +2,13 @@ APP_ROOT = File.dirname(__FILE__)
 
 $:.unshift(File.join(APP_ROOT, 'lib'))
 require 'birthday_bot'
+require 'rufus-scheduler'
+require 'httparty'
 
-bot = SlackBot.new("https://hooks.slack.com/services/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", 'aniversarios.txt')
-bot.launch!
+scheduler = Rufus::Scheduler.new
+scheduler.at "14:00:00" do
+	bot = SlackBot.new("your slack url here!", 'your text file here!')
+	
+	bot.launch!
+	end
+scheduler.join

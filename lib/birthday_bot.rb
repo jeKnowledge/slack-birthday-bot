@@ -49,22 +49,17 @@ class SlackBot
 
 	def launch!
 	
-		scheduler = Rufus::Scheduler.new
 		birthdays = Birthday.get_birthdays
 		result = []
 		time = Time.new
-		scheduler.at "1:49:00"  do
-		jk_slack_client = SlackBot.new('https://hooks.slack.com/services/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', "aniversarios.txt")
 		birthdays.each do |pessoa|
 			if pessoa[3].to_i == time.month && pessoa[4].to_i == time.day
 				result << pessoa
 			end
 		end
 		if result.length != 0
-			message = jk_slack_client.alert_birthday(format_text(result))
+			alert_birthday(format_text(result))
 		end
-	end
-scheduler.join
 	end
 end
 	

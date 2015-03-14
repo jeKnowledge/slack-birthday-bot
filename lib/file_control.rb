@@ -5,6 +5,7 @@ class Birthday
     @@filepath = File.join(APP_ROOT, path)
   end
 
+  #checks if the file we are looking exists in the correct directory
   def self.file_exists?
     if @@filepath && File.exists?(@@filepath)
       return true
@@ -13,6 +14,7 @@ class Birthday
     end
   end
 
+  #checks if the file is valid
   def self.file_usable?
     return false unless @@filepath
     return false unless File.exists?(@@filepath)

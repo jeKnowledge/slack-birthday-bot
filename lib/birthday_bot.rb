@@ -4,7 +4,9 @@ require 'file_control'
 
 class SlackBot
 
-	def initialize(url, path)
+	#it initializes the bot with the url of slack and the path of the file
+	
+	def initialize(url, path, user, channel)
 		@url = url
 		Birthday.filepath = path
 		if Birthday.file_exists?
@@ -15,17 +17,11 @@ class SlackBot
 				puts "Nothing to be done! Goodbye!\n\n"
 				exit!
 		end
+		@username = user
+		@channel = channel
 	end
 
-	def introduction
-			puts "Welcome to Slack Birthday Bot"
-	end
-
-	def shut_down
-			puts "\nShutting down! Goodbye!"
-			sleep 1
-	end
-
+	#prepares the text for output into slack
 	def format_text(result)
 			final_names = ""
 			counter = 0
@@ -43,10 +39,12 @@ class SlackBot
 			end
 	end
 
-	def alert_birthday(message)
+	#sends the message through HTTParty with the specific payload and so on
+	def alert_birthday(message, chann, user)
 		HTTParty.post(@url, body: {channel: "#birthday_test", username: "maximus", text: message, icon_emoji: ":ghost:"}.to_json)
 	end
 
+	#launcher will work whenever the bot is active and does all the work with the specific functions
 	def launch!
 	
 		birthdays = Birthday.get_birthdays
@@ -58,7 +56,7 @@ class SlackBot
 			end
 		end
 		if result.length != 0
-			alert_birthday(format_text(result))
+			alert_birthday(format_text(result), @channel, @username)
 		end
 	end
 end

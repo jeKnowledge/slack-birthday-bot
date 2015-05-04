@@ -7,7 +7,7 @@ require 'httparty'
 
 #creates a scheduler that will check for birthdays at a specific time
 puts "Welcome to BirthdayBot"
-print 'Please enter your slack url:' 
+print 'Please enter your Slack URL:' 
 url = gets.chomp
 print 'Please enter your text file with the birth dates and names: '
 namefile = gets.chomp

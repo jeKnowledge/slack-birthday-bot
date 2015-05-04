@@ -16,10 +16,10 @@ Next you will be asked the following questions:
 ```
 $ ruby init.rb 
 Welcome to BirthdayBot
-Please enter your slack url: (Incoming WebHooks URL here)
-Please enter your text file with the birth dates and names: (eg. birthdays.txt)
-PLease enter the channel you want the bot to post to: (eg. #general)
-Please enter the name of the bot: (eg. BirthdayPoster)
+Please enter your Slack URL: (Incoming WebHooks URL here)
+Please enter your text file with the birth dates and names: (e.g. birthdays.txt)
+PLease enter the channel you want the bot to post to: (e.g. #general)
+Please enter the name of the bot: (e.g. BirthdayPoster)
 	
 ```
 

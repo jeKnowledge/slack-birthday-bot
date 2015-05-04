@@ -7,13 +7,21 @@ First of all, you will have to make a .txt file that has the following format:
  
 ``` First_Name Last_Name yy mm dd ```
 
-Next you will need to run ```Bundle install``` to install the respective dependencies.
+Next you will need to run ```bundle install``` to install the respective dependencies.
 
 After that you will need to know your [Incoming Webhooks](https://api.slack.com/incoming-webhooks) URL. Note that if you don't have the integration in your Slack Team you will need to do it!
 
 Next you will be asked the following questions:
 
-![Questions](http://i.imgur.com/aZinlgf.png)
+```
+$ ruby init.rb 
+Welcome to BirthdayBot
+Please enter your slack url: (Incoming WebHooks URL here)
+Please enter your text file with the birth dates and names: (eg. birthdays.txt)
+PLease enter the channel you want the bot to post to: (eg. #general)
+Please enter the name of the bot: (eg. BirthdayPoster)
+	
+```
 
 Answer the questions correctly and there you go! The bot is now running for your Slack!
 

@@ -5,7 +5,7 @@ This Bot was made so that you could have Something to warn you in Slack when it 
 
 First of all, you will have to make a .txt file that has the following format: 
  
-![Example of txt file](http://i.imgur.com/CV0htZD.png?1)
+``` First_Name Last_Name yy mm dd ```
 
 Next you will need to run ```Bundle install``` to install the respective dependencies.
 

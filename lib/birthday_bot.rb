@@ -33,9 +33,9 @@ class SlackBot
       end
     end
     if result.length == 1
-      birthday_phrase = "A jeKnowledge deseja um feliz aniverário a: #{final_names} continua o óptimo trabalho!"
+      birthday_phrase = "A EqualExperts deseja um feliz aniverário a: #{final_names}. Parabéns! :tada:"
     else
-      birthday_phrase = "A jeKnowledge deseja um feliz aniversário a: #{final_names} continuem o óptimo trabalho!"
+      birthday_phrase = "A EqualExperts deseja um feliz aniversário a: #{final_names} Parabéns! :tada:"
     end
   end
 
@@ -46,7 +46,7 @@ class SlackBot
 
   #launcher will work whenever the bot is active and does all the work with the specific functions
   def launch!
-    scheduler = Rufus::Scheduler.new	
+    scheduler = Rufus::Scheduler.new
     birthdays = Birthday.get_birthdays
     result = []
     time = Time.new
@@ -63,4 +63,4 @@ class SlackBot
     end
   end
 end
-	
+

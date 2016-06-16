@@ -1,0 +1,19 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    httparty (0.13.7)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
+    json (1.8.3)
+    multi_xml (0.5.5)
+    rufus-scheduler (3.2.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  httparty
+  rufus-scheduler
+
+BUNDLED WITH
+   1.11.2

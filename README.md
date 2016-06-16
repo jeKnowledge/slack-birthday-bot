@@ -33,6 +33,6 @@ To communicate with the Slack API we used [HTTParty](https://github.com/jnunemak
 
 ## Deploy
 
-- install tool belt (https://toolbelt.heroku.com/osx)
-- https://blog.heroku.com/archives/2016/3/9/how-to-deploy-your-slack-bots-to-heroku
--
+- Install [heroku toolbelt](https://toolbelt.heroku.com/osx)
+- Deploy tutorial [here](https://blog.heroku.com/archives/2016/3/9/how-to-deploy-your-slack-bots-to-heroku) and [here](http://blog.npmjs.org/post/128237577345/how-to-build-a-slackbot-deploy-an-app-to-heroku)
+

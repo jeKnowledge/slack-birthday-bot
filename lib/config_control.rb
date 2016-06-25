@@ -6,8 +6,13 @@ class ConfigReader
 
   # Reads a JSON file containing the configurations
   def load(filename)
-    file = File.read(filename)
-    @configs = JSON.parse(file)
+    if File.exists?(filename)
+      puts 'Found configurations file'
+      file = File.read(filename)
+      @configs = JSON.parse(file)
+    else
+      abort 'ERROR: Configuration file not found'
+    end
 
     if valid?
       @slack_url = @configs['SlackUrl']
@@ -24,7 +29,7 @@ class ConfigReader
     puts 'Validating configurations'
     value = false
     if @configs.nil?
-      puts 'ERROR: Configuration file not found'
+      puts 'ERROR: Configuration file is not a valid JSON'
     elsif not @configs.key?('SlackUrl')
       puts 'ERROR: Missing "SlackUrl" on configuration file'
     elsif not @configs.key?('ChannelName')

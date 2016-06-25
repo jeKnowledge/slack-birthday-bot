@@ -1,14 +1,3 @@
-####################
-# Project specific #
-####################
-
-configurations.json
-birthdays.txt
-
-###################
-# Default ignores #
-###################
-
 *.gem
 *.rbc
 /.config
@@ -51,10 +40,3 @@ build-iPhoneSimulator/
 
 # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
 .rvmrc
-
-####################
-# Project specific #
-####################
-
-configs.json
-birthdays.txt

@@ -4,9 +4,10 @@ require 'birthday_reader'
 class SlackBot
 
   #initializes the bot with all necessary configurations
-  def initialize(url, user, channel, emoji)
+  def initialize(url, channel, greeting, botname, emoji)
     @url = url
-    @username = user
+    @greeting = greeting
+    @botname = botname
     @channel = channel
     @emoji = emoji
     BirthdayReader.filepath = 'birthdays.txt'
@@ -18,38 +19,38 @@ class SlackBot
   end
 
   #prepares the text for output into slack
-  def format_text(result)
+  def format_text(people, greeting)
     final_names = ''
     counter = 0
-    result.each_with_index do |names, counter|
-      if counter < result.length - 1
+    people.each_with_index do |names, counter|
+      if counter < people.length - 1
         final_names += "#{names[0]} #{names[1]}, "
       else
         final_names += "#{names[0]} #{names[1]}"
       end
     end
-    value = 'A EqualExperts dá os parabéns!' + " :confetti_ball: #{final_names} :confetti_ball:"
+    value = greeting + " :confetti_ball: #{final_names} :confetti_ball:"
   end
 
   #sends the message through HTTParty with the specific payload and so on
-  def push_to_slack(message, chann, user, emoji)
+  def push_to_slack(message, channel_name, bot_name, emoji)
     puts '🤖 Bot is notifying Slack...'
-    HTTParty.post(@url, body: {channel: chann, username: user, text: message, icon_emoji: emoji}.to_json)
+    HTTParty.post(@url, body: {channel: channel_name, username: bot_name, text: message, icon_emoji: emoji}.to_json)
     puts "Pushed \"#{message}\""
   end
 
   #launcher will work whenever the bot is active and does all the work with the specific functions
   def launch!
     birthdays = BirthdayReader.get_birthdays
-    result = []
+    newborns = []
     today = DateTime.now.to_date
     print "Checking who was born today (#{today.to_s}): "
     birthdays.each do |person|
       if (person[3].to_i == today.month) and (person[4].to_i == today.day)
-        result << person
+        newborns << person
       end
     end
-    puts result.length
-    if result.length > 0 then push_to_slack(format_text(result), @channel, @username, @emoji) end
+    puts newborns.length
+    if newborns.length > 0 then push_to_slack(format_text(newborns, @greeting), @channel, @botname, @emoji) end
   end
 end

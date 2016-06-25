@@ -15,9 +15,10 @@ end
 puts 'Reading configurations'
 url = configs.slack_url
 channel = configs.channel_name
-username = configs.bot_name
+greeting = configs.greeting_msg
+name = configs.bot_name
 emoji = configs.bot_emoji
 
 puts '🤖 Bot is activating...'
-bot = SlackBot.new(url, username, channel, emoji)
+bot = SlackBot.new(url, channel, greeting, name, emoji)
 bot.launch!

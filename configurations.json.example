@@ -1,5 +1,5 @@
 {
   "SlackUrl": "",
   "ChannelName": "",
-  "BotName": ""
+  "BotName": "" //will override the name you used on Slack, otherwise leave empty
 }

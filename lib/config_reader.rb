@@ -6,7 +6,7 @@ class ConfigReader
 
   # Reads a JSON file containing the configurations
   def load(filename)
-    if File.exists?(filename)
+    if File.exist?(filename)
       puts 'Found configurations file'
       file = File.read(filename)
       @configs = JSON.parse(file)

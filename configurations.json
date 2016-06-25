@@ -1,5 +1,5 @@
 {
-  "SlackUrl":         "https://hooks.slack.com/...",
+  "SlackUrl":         "https://hooks.slack.com/... ... ...",
   "ChannelName":      "general",
   "GreetingMessage":  "Our company wishes a happy birthday!",
   "BotName":          "HeyBirthday",                          //optional, will override the name you used on Slack, otherwise leave empty

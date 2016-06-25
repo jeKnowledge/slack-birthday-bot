@@ -2,6 +2,6 @@
   "SlackUrl":         "https://hooks.slack.com/...",
   "ChannelName":      "general",
   "GreetingMessage":  "Our company wishes a happy birthday!",
-  "BotName":          "HeyBirthday",    //will override the name you used on Slack, otherwise leave empty
-  "BotEmojiCode":     ":tada:"          //will override the icon you used on Slack, otherwise leave empty
+  "BotName":          "HeyBirthday",                          //optional, will override the name you used on Slack, otherwise leave empty
+  "BotEmojiCode":     ":tada:"                                //optional, will override the icon you used on Slack, otherwise leave empty
 }

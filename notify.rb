@@ -5,7 +5,7 @@ require 'birthday_bot'
 require 'config_control'
 require 'httparty'
 
-puts ">> Bot is setting up..."
+puts "🤖 Bot is booting..."
 
 configs = ConfigReader.new()
 if not configs.load('configurations.json')
@@ -18,6 +18,6 @@ url = configs.slack_url
 channel = configs.channel_name
 username = configs.bot_name
 
-puts ">> Bot is launching :)"
+puts "🤖 Bot is launching!"
 bot = SlackBot.new(url, namefile, username, channel)
 bot.launch!

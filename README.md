@@ -47,5 +47,3 @@ This file will tell the bot how it should behave.
 #### Acknowledgements
 
 This code was originally created by [Tiago Botelho](https://github.com/tiagonbotelho), while he was an intern at [jeKnowledge](http://jeknowledge.pt/).
-
-Handcrafted in :flag-pt:

@@ -27,27 +27,28 @@ class SlackBot
         final_names += "#{names[0]} #{names[1]}"
       end
     end
-    value = 'A EqualExperts deseja um feliz aniverário.' + " ➡ #{final_names} :tada:"
+    value = 'A EqualExperts dá os parabéns!' + " :confetti_ball: #{final_names} :confetti_ball:"
   end
 
   #sends the message through HTTParty with the specific payload and so on
-  def alert_birthday(message, chann, user)
+  def push_to_slack(message, chann, user)
+    puts '🤖 Bot is notifying Slack...'
     HTTParty.post(@url, body: {channel: chann, username: user, text: message, icon_emoji: ":david:"}.to_json)
+    puts "Pushed \"#{message}\""
   end
 
   #launcher will work whenever the bot is active and does all the work with the specific functions
   def launch!
     birthdays = BirthdayReader.get_birthdays
     result = []
-    time = Time.new
+    today = DateTime.now.to_date
+    print "Checking who was born today (#{today.to_s}): "
     birthdays.each do |person|
-      if person[3].to_i == time.month && person[4].to_i == time.day
+      if (person[3].to_i == today.month) and (person[4].to_i == today.day)
         result << person
       end
     end
-    if result.length != 0
-      puts format_text(result)
-      alert_birthday(format_text(result), @channel, @username)
-    end
+    puts result.length
+    if result.length > 0 then push_to_slack(format_text(result), @channel, @username) end
   end
 end

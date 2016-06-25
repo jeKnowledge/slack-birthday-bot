@@ -2,28 +2,22 @@ APP_ROOT = File.dirname(__FILE__)
 
 $:.unshift(File.join(APP_ROOT, 'lib'))
 require 'birthday_bot'
-require 'json'
+require 'config_control'
 require 'httparty'
 
 puts ">> Bot is setting up..."
-file = File.read('configs.json')
-configs = JSON.parse(file)
 
-puts 'Validating configurations'
-if not configs.key?('SlackUrl')
-  abort('ERROR: Missing "SlackUrl" on configuration file')
-elsif not configs.key?('ChannelName')
-  abort('ERROR: Missing "ChannelName" on configuration file')
-elsif not configs.key?('BotName')
-  abort('ERROR: Missing "BotName" on configuration file')
+configs = ConfigReader.new()
+if not configs.load('configurations.json')
+  abort ">> Bot is shutting down :("
 end
 
 puts "Reading configurations"
 namefile = 'birthdays.txt'
-url = configs['SlackUrl']
-channel = configs['ChannelName']
-username = configs['BotName']
+url = configs.slack_url
+channel = configs.channel_name
+username = configs.bot_name
 
-puts ">> Bot is launching!"
+puts ">> Bot is launching :)"
 bot = SlackBot.new(url, namefile, username, channel)
 bot.launch!

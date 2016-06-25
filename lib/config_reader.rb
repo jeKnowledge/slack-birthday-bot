@@ -2,7 +2,7 @@ require 'json'
 
 class ConfigReader
 
-  attr_accessor :slack_url, :channel_name, :bot_name
+  attr_accessor :slack_url, :channel_name, :bot_name, :bot_emoji
 
   # Reads a JSON file containing the configurations
   def load(filename)
@@ -18,6 +18,7 @@ class ConfigReader
       @slack_url = @configs['SlackUrl']
       @channel_name = @configs['ChannelName']
       @bot_name = @configs['BotName']
+      @bot_emoji = @configs['BotEmojiCode']
       return true
     else
       return false
@@ -36,6 +37,8 @@ class ConfigReader
       puts 'ERROR: Missing "ChannelName" on configuration file'
     elsif not @configs.key?('BotName')
       puts 'ERROR: Missing "BotName" on configuration file'
+    elsif not @configs.key?('BotEmojiCode')
+      puts 'ERROR: Missing "BotEmojiCode" on configuration file'
     else
       value = true
     end

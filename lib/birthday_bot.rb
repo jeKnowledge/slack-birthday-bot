@@ -4,10 +4,11 @@ require 'birthday_reader'
 class SlackBot
 
   #initializes the bot with all necessary configurations
-  def initialize(url, user, channel)
+  def initialize(url, user, channel, emoji)
     @url = url
     @username = user
     @channel = channel
+    @emoji = emoji
     BirthdayReader.filepath = 'birthdays.txt'
     if BirthdayReader.file_exist?
       puts 'Found birthdays file'
@@ -31,9 +32,9 @@ class SlackBot
   end
 
   #sends the message through HTTParty with the specific payload and so on
-  def push_to_slack(message, chann, user)
+  def push_to_slack(message, chann, user, emoji)
     puts '🤖 Bot is notifying Slack...'
-    HTTParty.post(@url, body: {channel: chann, username: user, text: message, icon_emoji: ":david:"}.to_json)
+    HTTParty.post(@url, body: {channel: chann, username: user, text: message, icon_emoji: emoji}.to_json)
     puts "Pushed \"#{message}\""
   end
 
@@ -49,6 +50,6 @@ class SlackBot
       end
     end
     puts result.length
-    if result.length > 0 then push_to_slack(format_text(result), @channel, @username) end
+    if result.length > 0 then push_to_slack(format_text(result), @channel, @username, @emoji) end
   end
 end

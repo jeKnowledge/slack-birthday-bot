@@ -31,7 +31,7 @@ class Birthday
   #gets the array of that line in predefined order(1st name, last name, year, month, day)
   def import_line(line)
     line_array = line.split(' ')
-    @primeiro_nome, @ultimo_nome, @ano, @mes, @dia = line_array
+    @first_name, @last_name, @year, @month, @day = line_array
     return line_array
   end
 

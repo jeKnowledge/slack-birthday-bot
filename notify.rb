@@ -2,9 +2,9 @@ APP_ROOT = File.dirname(__FILE__)
 
 $:.unshift(File.join(APP_ROOT, 'lib'))
 require 'birthday_bot'
-require 'config_control'
-require 'httparty'
+require 'config_reader'
 
+puts ''
 puts '🤖 Bot is booting...'
 
 configs = ConfigReader.new()
@@ -13,11 +13,10 @@ if not configs.load('configurations.json')
 end
 
 puts 'Reading configurations'
-namefile = 'birthdays.txt'
 url = configs.slack_url
 channel = configs.channel_name
 username = configs.bot_name
 
-puts '🤖 Bot is launching!'
-bot = SlackBot.new(url, namefile, username, channel)
+puts '🤖 Bot is activating...'
+bot = SlackBot.new(url, username, channel)
 bot.launch!

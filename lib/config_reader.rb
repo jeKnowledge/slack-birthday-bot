@@ -18,9 +18,9 @@ class ConfigReader
       @slack_url = @configs['SlackUrl']
       @channel_name = @configs['ChannelName']
       @bot_name = @configs['BotName']
-      value = true
+      return true
     else
-      value = false
+      return false
     end
   end
 
@@ -39,6 +39,7 @@ class ConfigReader
     else
       value = true
     end
+    return value
   end
 
 end

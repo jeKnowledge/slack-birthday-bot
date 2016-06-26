@@ -4,7 +4,6 @@ $:.unshift(File.join(APP_ROOT, 'lib'))
 require 'birthday_bot'
 require 'config_reader'
 
-puts ''
 puts '🤖 Bot is booting...'
 
 configs = ConfigReader.new()

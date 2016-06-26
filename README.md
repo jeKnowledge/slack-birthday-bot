@@ -2,7 +2,7 @@
 
 The purpose of this bot is to post on your team's Slack channel on a colleague's birthday.
 
-Everytime you run the command `ruby notify.rb` the code will read some files, check who was born at that date, and send a push notification to a Slack channel. You need to create those configuration files, deploy this code to a server, and run that command based on a daily schedule. For that I used Heroku & Heroku Scheduler.
+Every time you run the command `ruby notify.rb` the code will read some files, check who was born at that date, and send a push notification to a Slack channel. You need to create those configuration files, deploy this code to a server, and run that command based on a daily schedule. For that, I used Heroku and its Scheduler add-on.
 
 ## Ready
 
@@ -37,14 +37,14 @@ This file will tell the bot how it should behave.
 
 #### Schedule (on Heroku Scheduler)
 
-- Run `heroku addons:create scheduler:standard` to add the Scheduler addon to your deploy.
+- Run `heroku addons:create scheduler:standard` to add the Scheduler add-on to your deploy.
 - Run `heroku addons:open scheduler` to configure.
 - Click **Add a new job** and type `ruby notify.rb` as the command.
 - Set frequency to **Daily** and choose the best **Time** for your company.
 
 --------------------------------------------------------------------------------
 
-#### Acknowledgements
+#### Acknowledgments
 
 This code was originally created by [Tiago Botelho](https://github.com/tiagonbotelho), while he was an intern at [jeKnowledge](http://jeknowledge.pt/).
 

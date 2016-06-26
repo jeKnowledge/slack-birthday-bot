@@ -51,6 +51,9 @@ class SlackBot
       end
     end
     puts newborns.length
-    if newborns.length > 0 then push_to_slack(format_text(newborns, @greeting), @channel, @botname, @emoji) end
+    if newborns.length > 0
+      push_to_slack(format_text(newborns, @greeting), @channel, @botname, @emoji)
+    end
+    puts '🤖 Bot is shutting down...'
   end
 end

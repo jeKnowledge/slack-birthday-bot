@@ -1,66 +1,59 @@
 require 'httparty'
-require 'rufus-scheduler'
-require 'file_control'
+require 'birthday_reader'
 
 class SlackBot
 
-  #it initializes the bot with the url of slack and the path of the file
-
-  def initialize(url, path, user, channel)
+  #initializes the bot with all necessary configurations
+  def initialize(url, channel, greeting, botname, emoji)
     @url = url
-    Birthday.filepath = path
-    if Birthday.file_exists?
-      puts "Found aniversary file"
-    elsif Birthday.create_file
-      puts "An aniversary file was created"
-    else
-      puts "Nothing to be done! Goodbye!\n\n"
-      exit!
-    end
-    @username = user
+    @greeting = greeting
+    @botname = botname
     @channel = channel
+    @emoji = emoji
+    BirthdayReader.filepath = 'birthdays.txt'
+    if BirthdayReader.file_exist?
+      puts 'Found birthdays file'
+    else
+      abort 'ERROR: Birthdays file not found'
+    end
   end
 
   #prepares the text for output into slack
-  def format_text(result)
-    final_names = ""
+  def format_text(people, greeting)
+    final_names = ''
     counter = 0
-    result.each_with_index do |names, counter|
-      if counter < result.length - 1
+    people.each_with_index do |names, counter|
+      if counter < people.length - 1
         final_names += "#{names[0]} #{names[1]}, "
       else
         final_names += "#{names[0]} #{names[1]}"
       end
     end
-    if result.length == 1
-      birthday_phrase = "A jeKnowledge deseja um feliz aniverário a: #{final_names} continua o óptimo trabalho!"
-    else
-      birthday_phrase = "A jeKnowledge deseja um feliz aniversário a: #{final_names} continuem o óptimo trabalho!"
-    end
+    value = greeting + " :confetti_ball: #{final_names} :confetti_ball:"
   end
 
   #sends the message through HTTParty with the specific payload and so on
-  def alert_birthday(message, chann, user)
-    HTTParty.post(@url, body: {channel: chann, username: user, text: message, icon_emoji: ":david:"}.to_json)
+  def push_to_slack(message, channel_name, bot_name, emoji)
+    puts '🤖 Bot is notifying Slack...'
+    HTTParty.post(@url, body: {channel: channel_name, username: bot_name, text: message, icon_emoji: emoji}.to_json)
+    puts "Pushed \"#{message}\""
   end
 
   #launcher will work whenever the bot is active and does all the work with the specific functions
   def launch!
-    scheduler = Rufus::Scheduler.new	
-    birthdays = Birthday.get_birthdays
-    result = []
-    time = Time.new
-    scheduler.at "9:00" do
-      birthdays.each do |pessoa|
-        if pessoa[3].to_i == time.month && pessoa[4].to_i == time.day
-          result << pessoa
-        end
-      end
-      if result.length != 0
-        puts format_text(result)
-        alert_birthday(format_text(result), @channel, @username)
+    birthdays = BirthdayReader.get_birthdays
+    newborns = []
+    today = DateTime.now.to_date
+    print "Checking who was born today (#{today.to_s}): "
+    birthdays.each do |person|
+      if (person[3].to_i == today.month) and (person[4].to_i == today.day)
+        newborns << person
       end
     end
+    puts newborns.length
+    if newborns.length > 0
+      push_to_slack(format_text(newborns, @greeting), @channel, @botname, @emoji)
+    end
+    puts '🤖 Bot is shutting down...'
   end
 end
-	

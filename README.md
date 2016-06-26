@@ -1,32 +1,51 @@
-#Birthday Bot Docs
-This Bot was made so that you could have Something to warn you in Slack when it was someone's birthday.
+# Birthday Bot
 
-## Starting up
+The purpose of this bot is to post on your team's Slack channel on a colleague's birthday.
 
-First of all, you will have to make a .txt file that has the following format: 
- 
-``` First_Name Last_Name yy mm dd ```
+Every time you run the command `rake congratulate` the code will read some files, check who was born at that date, and send a push notification to a Slack channel. You need to create those configuration files, deploy this code to a server, and run that command based on a daily schedule. For that, I used Heroku and its Scheduler add-on.
 
-Next you will need to run ```bundle install``` to install the respective dependencies.
+## Ready
 
-After that you will need to know your [Incoming Webhooks](https://api.slack.com/incoming-webhooks) URL. Note that if you don't have the integration in your Slack Team you will need to do it!
+1. Run `bundle install` on you local machine to install dependencies and generate `Gemfile.lock`.
+2. Get your [Incoming Webhook](https://api.slack.com/incoming-webhooks) URL from Slack.
+3. While your at it, give your Slack Bot a name and an icon. That's easier to manage than a configuration file.
 
-Next you will be asked the following questions:
+## Set
 
-```
-$ ruby init.rb 
-Welcome to BirthdayBot
-Please enter your Slack URL: (Incoming WebHooks URL here)
-Please enter your text file with the birth dates and names: (e.g. birthdays.txt)
-PLease enter the channel you want the bot to post to: (e.g. #general)
-Please enter the name of the bot: (e.g. BirthdayPoster)
-	
-```
+#### Configure your birthdays
 
-Answer the questions correctly and there you go! The bot is now running for your Slack!
+1. Create/Open a file named `birthdays.txt`.
+2. Write on each line using the following format: `FirstName LastName YY MM DD`
+3. Make sure the file is located in the same folder as `notify.rb`.
 
-##What was used
+This file will tell the bot who and when should be congratulated.
 
-To develop this bot we has to couldn't run it day and night with a ```while(true)``` so we used [rufus-scheduler](https://github.com/jmettraux/rufus-scheduler) to only awake the bot once a day!
+#### Configure your bot
 
-To communicate with the Slack API we used [HTTParty](https://github.com/jnunemaker/httparty) wich is a simple and easy way to communicate given a payload and sends it in json format.
+1. Create/Open a file named `configurations.json`.
+2. Fill in the values as you like.
+3. Make sure the file is located in the same folder as `notify.rb`.
+
+This file will tell the bot how it should behave.
+
+## Go
+
+#### Deploy (to Heroku)
+
+- Do the initial setup at Heroku.
+- Upload your code using `git push heroku master`.
+
+#### Schedule (on Heroku Scheduler)
+
+- Run `heroku addons:create scheduler:standard` to add the Scheduler add-on to your deploy.
+- Run `heroku addons:open scheduler` to configure.
+- Click **Add a new job** and type `rake congratulate` as the command.
+- Set frequency to **Daily** and choose the best **Time** for your company.
+
+--------------------------------------------------------------------------------
+
+#### Acknowledgments
+
+This code was originally created by [Tiago Botelho](https://github.com/tiagonbotelho), while he was an intern at [jeKnowledge](http://jeknowledge.pt/).
+
+It was later revised by [Diogo Nunes](http://www.diogonunes.com/) for [EqualExperts](https://www.equalexperts.com/).

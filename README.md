@@ -1,32 +1,21 @@
-#Birthday Bot Docs
-This Bot was made so that you could have Something to warn you in Slack when it was someone's birthday.
+# Birthday Bot
 
-## Starting up
+The purpose of this bot is to send a message to your team's Slack when is someones birthday.
 
-First of all, you will have to make a .txt file that has the following format: 
- 
-``` First_Name Last_Name yy mm dd ```
+## Setup & Deploy (Heroku)
 
-Next you will need to run ```bundle install``` to install the respective dependencies.
+1. Get your [Incoming Webhook URL](https://api.slack.com/incoming-webhooks) from Slack
+2. Save the url at `configurations.json` file and fill in the rest of the configurations as you like
+3. Set your birthdays list using the format `FirstName LastName YY MM DD` at the `birthdays.txt` file
+4. Create a blank app at Heroku
+5. Push your code to Heroku
+6. Run `heroku addons:create scheduler:standard` to add the Scheduler add-on to your deploy
+7. Run `heroku addons:open scheduler` to configure the scheduler
+8. Click **Add a new job** and type `rake congratulate` as the command
+9. Set frequency to **Daily** and choose the **Time** you want to be notified
 
-After that you will need to know your [Incoming Webhooks](https://api.slack.com/incoming-webhooks) URL. Note that if you don't have the integration in your Slack Team you will need to do it!
+## Contributors 
 
-Next you will be asked the following questions:
+This project was originally created by [Tiago Botelho](https://github.com/tiagonbotelho), while he was an intern at [jeKnowledge](http://jeknowledge.pt/).
 
-```
-$ ruby init.rb 
-Welcome to BirthdayBot
-Please enter your Slack URL: (Incoming WebHooks URL here)
-Please enter your text file with the birth dates and names: (e.g. birthdays.txt)
-PLease enter the channel you want the bot to post to: (e.g. #general)
-Please enter the name of the bot: (e.g. BirthdayPoster)
-	
-```
-
-Answer the questions correctly and there you go! The bot is now running for your Slack!
-
-##What was used
-
-To develop this bot we has to couldn't run it day and night with a ```while(true)``` so we used [rufus-scheduler](https://github.com/jmettraux/rufus-scheduler) to only awake the bot once a day!
-
-To communicate with the Slack API we used [HTTParty](https://github.com/jnunemaker/httparty) wich is a simple and easy way to communicate given a payload and sends it in json format.
+It was later revised by [Diogo Nunes](http://www.diogonunes.com/) from [EqualExperts](https://www.equalexperts.com/) and [João Bernardo](http://jbernardo.me) from [jeKnowledge](http://jeknowledge.pt/).

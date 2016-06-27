@@ -1,0 +1,7 @@
+{
+  "slack_url":        "https://hooks.slack.com/... ... ...",
+  "channel_name":     "general",
+  "greeting_message": "Happy birthday !",
+  "bot_name":         "Birhday Bot",
+  "bot_emoji":        ":tada:"
+}

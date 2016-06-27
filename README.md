@@ -1,4 +1,4 @@
-# Birthday Bot
+# Slack Birthday Bot
 
 The purpose of this bot is to send a message to your team's Slack when is someones birthday.
 

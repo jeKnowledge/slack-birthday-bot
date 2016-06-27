@@ -5,5 +5,5 @@ end
 
 desc "Checks if today is someone's birthday. If so, sends a message to Slack."
 task :congratulate do
-  ruby "notify.rb"
+  ruby "congratulate.rb"
 end

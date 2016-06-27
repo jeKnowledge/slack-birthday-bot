@@ -42,3 +42,5 @@ build-iPhoneSimulator/
 .rvmrc
 
 birthdays.txt
+
+.DS_Store

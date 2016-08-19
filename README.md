@@ -7,15 +7,16 @@ The purpose of this bot is to send a message to your team's Slack when is someon
 
 ### Heroku
 
-1. Get your [Incoming Webhook URL](https://api.slack.com/incoming-webhooks) from Slack
-2. Save the url at `configurations.json` file and fill in the rest of the configurations as you like
-3. Set your birthdays list using the format `FirstName LastName YY MM DD` at the `birthdays.txt` file
-4. Create a blank app at Heroku
-5. Push your code to Heroku
-6. Run `heroku addons:create scheduler:standard` to add the Scheduler add-on to your deploy
-7. Run `heroku addons:open scheduler` to configure the scheduler
-8. Click **Add a new job** and type `rake congratulate` as the command
-9. Set frequency to **Daily** and choose the **Time** you want to be notified
+1. Clone this repo to a desire location at your own computer
+2. Get your [Incoming Webhook URL](https://api.slack.com/incoming-webhooks) from Slack
+3. Save the url at `configurations.json` file and fill in the rest of the configurations as you like
+4. Set your birthdays list using the format `FirstName LastName YY MM DD` at the `birthdays.txt` file
+5. Create a blank app at Heroku
+6. Push your code to Heroku
+7. Run `heroku addons:create scheduler:standard` to add the Scheduler add-on to your deploy
+8. Run `heroku addons:open scheduler` to configure the scheduler
+9. Click **Add a new job** and type `rake congratulate` as the command
+10. Set frequency to **Daily** and choose the **Time** you want to be notified
 
 ### Custom Server
 

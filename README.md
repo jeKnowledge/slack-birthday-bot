@@ -13,6 +13,7 @@ The purpose of this bot is to send a message to your team's Slack when is someon
 4. Set your birthdays list using the format `FirstName LastName YY MM DD` at the `birthdays.txt` file
 5. Create a blank app at Heroku
 6. Push your code to Heroku
+7. The bot was developed with the **2.2.6** version of ruby, any other versions may require changes.
 7. Run `heroku addons:create scheduler:standard` to add the Scheduler add-on to your deploy
 8. Run `heroku addons:open scheduler` to configure the scheduler
 9. Click **Add a new job** and type `rake congratulate` as the command

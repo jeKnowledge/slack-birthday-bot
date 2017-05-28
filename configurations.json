@@ -1,4 +1,5 @@
 {
+  "db_path":	      "birthdays.yaml",
   "slack_url":        "https://hooks.slack.com/...",
   "channel_name":     "general",
   "greeting_message": "Happy birthday !",

@@ -3,7 +3,6 @@ require 'config_reader'
 require 'birthday_reader'
 
 class BirthdayBot 
-  @@path = "birthdays.txt"
 
   def initialize()
     @config = ConfigReader.new
@@ -11,7 +10,7 @@ class BirthdayBot
   end
 
   def start!
-    birthdays = BirthdayReader.get_birthdays(@@path)
+    birthdays = BirthdayReader.get_birthdays(@config.db_path)
     today = Time.now 
 
     puts "Checking who was born today (#{today.to_s})"

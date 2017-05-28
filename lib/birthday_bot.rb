@@ -11,17 +11,28 @@ class BirthdayBot
 
   def start!
     birthdays = BirthdayReader.get_birthdays(@config.db_path)
-    today = Time.now 
 
-    puts "Checking who was born today (#{today.to_s})"
-    birthdays.each do |b|
-      if (b[3].to_i == today.month) && (b[4].to_i == today.day)
-        message = "#{@config.greeting_message} #{b[0]} #{b[1]}" 
-        HTTParty.post(@config.slack_url, body: { channel: @config.channel_name,
-                                                 username: @config.bot_name,
-                                                 text: message,
-                                                 icon_emoji: @config.bot_emoji }.to_json)
+    puts "Checking who was born today"
+    unless birthdays.nil?
+      users = "<@#{ birthdays[0] }>"
+      if birthdays.count > 1
+        puts "#{ birthdays.count } people were born today"
+        if birthdays.count == 2
+          users = " <@#{ birthdays[0] }> and <@#{ birthdays[1] }> "
+        else
+           for i in 1..birthdays.count-2
+             users += ", <@#{ birthdays[i] }>"
+           end
+           users += " and <@#{ birthdays[i+1] }> "
+        end
       end
+      message = "#{users} #{@config.greeting_message}"
+      HTTParty.post(@config.slack_url, body: { channel: @config.channel_name,
+                                               username: @config.bot_name,
+                                               text: message,
+                                               icon_emoji: @config.bot_emoji }.to_json)
+    else
+      puts "Today is a day that no one was born"
     end
   end
 end

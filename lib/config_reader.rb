@@ -2,6 +2,7 @@ require 'json'
 
 class ConfigReader
   attr_accessor :db_path,
+                :mention,
                 :slack_url,
                 :channel_name,
                 :greeting_message,
@@ -13,6 +14,7 @@ class ConfigReader
       file = File.read(filename)
       config = JSON.parse(file)
       @db_path = config['db_path']
+      @mention = config['mention']
       @slack_url = config['slack_url']
       @channel_name = config['channel_name']
       @greeting_message = config['greeting_message']

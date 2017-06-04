@@ -14,16 +14,16 @@ class BirthdayBot
 
     puts "Checking who was born today"
     unless birthdays.nil?
-      users = "<@#{ birthdays[0] }>"
+      users = "#{ mention birthdays[0] }"
       if birthdays.count > 1
         puts "#{ birthdays.count } people were born today"
         if birthdays.count == 2
-          users = " <@#{ birthdays[0] }> and <@#{ birthdays[1] }> "
+          users = " #{ mention birthdays[0] } and #{ mention birthdays[1] } "
         else
            for i in 1..birthdays.count-2
-             users += ", <@#{ birthdays[i] }>"
+             users.concat( ", #{ mention birthdays[i] }" )
            end
-           users += " and <@#{ birthdays[i+1] }> "
+           users.concat( " and #{ mention birthdays[i+1] } " )
         end
       end
       message = "#{users} #{@config.greeting_message}"
@@ -35,4 +35,13 @@ class BirthdayBot
       puts "Today is a day that no one was born"
     end
   end
+
+  def mention ( name )
+    if @config.mention
+      "<@#{ name }>"
+    else
+      name
+    end
+  end
+
 end

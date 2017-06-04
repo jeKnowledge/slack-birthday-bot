@@ -1,7 +1,7 @@
 require 'json'
 
 class ConfigReader
-  attr_accessor :db_path,
+  attr_accessor :birthdays_path,
                 :mention,
                 :slack_url,
                 :channel_name,
@@ -13,7 +13,7 @@ class ConfigReader
     if File.exist?(filename)
       file = File.read(filename)
       config = JSON.parse(file)
-      @db_path = config['db_path']
+      @birthdays_path = config['birthdays_path']
       @mention = config['mention']
       @slack_url = config['slack_url']
       @channel_name = config['channel_name']

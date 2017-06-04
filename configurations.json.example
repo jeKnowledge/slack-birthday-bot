@@ -1,5 +1,5 @@
 {
-  "db_path":	      "birthdays.yaml",
+  "birthdays_path":   "birthdays.yaml",
   "mention":          true,
   "slack_url":        "https://hooks.slack.com/...",
   "channel_name":     "general",

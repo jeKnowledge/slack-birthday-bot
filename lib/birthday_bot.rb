@@ -10,7 +10,7 @@ class BirthdayBot
   end
 
   def start!
-    birthdays = BirthdayReader.get_birthdays(@config.db_path)
+    birthdays = BirthdayReader.get_birthdays(@config.birthdays_path)
 
     puts "Checking who was born today"
     unless birthdays.nil?

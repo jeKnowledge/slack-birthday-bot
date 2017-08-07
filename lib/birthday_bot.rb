@@ -10,7 +10,11 @@ class BirthdayBot
   end
 
   def start!
-    birthdays = BirthdayReader.get_birthdays(@config.birthdays_path)
+    bday_list = BirthdayReader.get_birthdays(@config.birthdays_path)
+
+    unless bday_list.nil? || bday_list.empty?
+      birthdays = bday_list[Time.now.month.to_s][Time.now.day.to_s]
+    end
 
     puts "Checking who was born today (#{Time.now.to_s})"
     unless birthdays.nil?

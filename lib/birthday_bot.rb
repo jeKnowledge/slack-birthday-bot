@@ -10,27 +10,13 @@ class BirthdayBot
   end
 
   def start!
-    bday_list = BirthdayReader.get_birthdays(@config.birthdays_path)
+    birthdays = BirthdayReader.get_birthdays(@config.birthdays_path)
 
     today = Time.now
-    unless bday_list.nil? || bday_list.empty?
-      birthdays = bday_list[today.month.to_s][today.day.to_s]
-    end
-
     puts "Checking who was born today (#{today.to_s})"
-    unless birthdays.nil?
-      users = "#{ mention birthdays[0] }"
-      if birthdays.count > 1
-        puts "#{ birthdays.count } people were born today"
-        if birthdays.count == 2
-          users = " #{ mention birthdays[0] } and #{ mention birthdays[1] } "
-        else
-           for i in 1..birthdays.count-2
-             users.concat( ", #{ mention birthdays[i] }" )
-           end
-           users.concat( " and #{ mention birthdays[i+1] } " )
-        end
-      end
+    unless birthdays.nil? || birthdays.empty?
+      birthdays_today = birthdays[today.month.to_s][today.day.to_s]
+      users = build_user_list ( birthdays_today )
       message = "#{users} #{@config.greeting_message}"
       HTTParty.post(@config.slack_url, body: { channel: @config.channel_name,
                                                username: @config.bot_name,
@@ -38,6 +24,19 @@ class BirthdayBot
                                                icon_emoji: @config.bot_emoji }.to_json)
     else
       puts "Today is a day that no one was born"
+    end
+  end
+
+  def build_user_list ( birthdays )
+    if birthdays.count == 1
+      mention birthdays.first
+    else
+      users = ""
+      puts "#{ birthdays.count } people were born today"
+      birthdays.take(birthdays.count - 2).each do | birthday |
+        users += mention(birthday) + ', '
+      end
+      users += "#{ mention birthdays[birthdays.count - 2] } and #{ mention birthdays[birthdays.count - 1] }" if birthdays.count > 1
     end
   end
 

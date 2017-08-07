@@ -12,11 +12,12 @@ class BirthdayBot
   def start!
     bday_list = BirthdayReader.get_birthdays(@config.birthdays_path)
 
+    today = Time.now
     unless bday_list.nil? || bday_list.empty?
-      birthdays = bday_list[Time.now.month.to_s][Time.now.day.to_s]
+      birthdays = bday_list[today.month.to_s][today.day.to_s]
     end
 
-    puts "Checking who was born today (#{Time.now.to_s})"
+    puts "Checking who was born today (#{today.to_s})"
     unless birthdays.nil?
       users = "#{ mention birthdays[0] }"
       if birthdays.count > 1

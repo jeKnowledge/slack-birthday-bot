@@ -55,7 +55,7 @@ The purpose of this bot is to send a message to your team's Slack when is someon
 
 This project was originally created by [Tiago Botelho](https://github.com/tiagonbotelho), while he was an intern at [jeKnowledge](http://jeknowledge.pt/).
 
-It was later revised by [Diogo Nunes](http://www.diogonunes.com/) from [EqualExperts](https://www.equalexperts.com/), [João Bernardo](http://jbernardo.me) from [jeKnowledge](http://jeknowledge.pt/) and @shinenelson.
+It was later revised by [Diogo Nunes](http://www.diogonunes.com/) from [EqualExperts](https://www.equalexperts.com/), [João Bernardo](http://jbernardo.me) from [jeKnowledge](http://jeknowledge.pt/) and then refactored again by [Shine Nelson](https://www.shinenelson.com).
 
 ## License
 

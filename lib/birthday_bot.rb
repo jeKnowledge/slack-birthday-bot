@@ -1,4 +1,4 @@
-require 'httparty'
+require 'net/http'
 require 'config_reader'
 require 'birthday_reader'
 
@@ -18,10 +18,18 @@ class BirthdayBot
       birthdays_today = birthdays[today.month.to_s][today.day.to_s]
       users = build_user_list ( birthdays_today )
       message = "#{users} #{@config.greeting_message}"
-      HTTParty.post(@config.slack_url, body: { channel: @config.channel_name,
-                                               username: @config.bot_name,
-                                               text: message,
-                                               icon_emoji: @config.bot_emoji }.to_json)
+      payload = { channel: @config.channel_name,
+                  username: @config.bot_name,
+                  text: message,
+                  icon_emoji: @config.bot_emoji }.to_json
+
+      uri = URI.parse(@config.slack_url)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true
+
+      request = Net::HTTP::Post.new(uri.path)
+      request.body = payload
+      http.request(request)
     else
       puts "Today is a day that no one was born"
     end

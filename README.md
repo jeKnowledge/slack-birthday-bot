@@ -15,7 +15,7 @@ The purpose of this bot is to send a message to your team's Slack when is someon
 4. Make a copy of the `configurations.json.example` file naming it `configurations.json`. Update the configuration values according to your preferences
 ```
     {
-       "db_path"		: "birthdays.<ext>",			# according to your preference
+       "birthdays_path"		: "birthdays.<ext>",			# according to your preference
 									# birthdays.yaml for YAML and birthdays.json for JSON
        "mention"		: <true | false>,			# depends on your database configuration format
 									# if you're using real names, set this value to false

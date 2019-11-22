@@ -1,9 +1,8 @@
-require 'httparty'
+require 'net/http'
 require 'config_reader'
 require 'birthday_reader'
 
 class BirthdayBot 
-  @@path = "birthdays.txt"
 
   def initialize()
     @config = ConfigReader.new
@@ -11,18 +10,50 @@ class BirthdayBot
   end
 
   def start!
-    birthdays = BirthdayReader.get_birthdays(@@path)
-    today = Time.now 
+    birthdays = BirthdayReader.get_birthdays(@config.birthdays_path)
 
+    today = Time.now
     puts "Checking who was born today (#{today.to_s})"
-    birthdays.each do |b|
-      if (b[3].to_i == today.month) && (b[4].to_i == today.day)
-        message = "#{@config.greeting_message} #{b[0]} #{b[1]}" 
-        HTTParty.post(@config.slack_url, body: { channel: @config.channel_name,
-                                                 username: @config.bot_name,
-                                                 text: message,
-                                                 icon_emoji: @config.bot_emoji }.to_json)
-      end
+    unless birthdays.nil? || birthdays.empty?
+      birthdays_today = birthdays[today.month.to_s][today.day.to_s]
+      users = build_user_list ( birthdays_today )
+      message = "#{users} #{@config.greeting_message}"
+      payload = { channel: @config.channel_name,
+                  username: @config.bot_name,
+                  text: message,
+                  icon_emoji: @config.bot_emoji }.to_json
+
+      uri = URI.parse(@config.slack_url)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true
+
+      request = Net::HTTP::Post.new(uri.path)
+      request.body = payload
+      http.request(request)
+    else
+      puts "Today is a day that no one was born"
     end
   end
+
+  def build_user_list ( birthdays )
+    if birthdays.count == 1
+      mention birthdays.first
+    else
+      users = ""
+      puts "#{ birthdays.count } people were born today"
+      birthdays.take(birthdays.count - 2).each do | birthday |
+        users += mention(birthday) + ', '
+      end
+      users += "#{ mention birthdays[birthdays.count - 2] } and #{ mention birthdays[birthdays.count - 1] }" if birthdays.count > 1
+    end
+  end
+
+  def mention ( name )
+    if @config.mention
+      "<@#{ name }>"
+    else
+      name
+    end
+  end
+
 end
